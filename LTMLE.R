@@ -50,11 +50,11 @@ lnodes <- names(Data_wide_cens_order_1)[c(21:35,38:53,56:71)]
  
  ##Library of methods which the super learners shall use in L-TMLE to estimate 
  # Q and g
- sl_libs_G_g <- c('SL.randomForest','SL.xgboost')
+ sl_libs_Q_g <- c('SL.randomForest','SL.xgboost')
  
  ## L-TMLE estimate of the average causal effect 
  set.seed(7)
  ltmle_est <- ltmle(Data_wide_cens_order_1, Anodes=anodes, Ynodes = ynodes, Cnodes=cnodes, 
-                               Lnodes = lnodes, survivalOutcome = T, abar=list(c(1,1,1),c(0,0,0)), SL.library = sl_libs_G_g)
+                               Lnodes = lnodes, survivalOutcome = T, abar=list(c(1,1,1),c(0,0,0)), SL.library = sl_libs_Q_g)
  
  summary(ltmle_est)

@@ -1,9 +1,9 @@
 library(tidyverse)
 
-##Load the Framingham Hart study which is a Longitudinal study 
+##Load the Framingham Heart Study which is a longitudinal study 
 Data <- read.csv("frmgham2.csv")
 
-##Total number of NA values in the data set
+##Total number of missing values in the data set
 sum(is.na.data.frame(Data))
 
 ##Identify number of missing values for each variable in the data set

@@ -41,7 +41,7 @@ cols_int <-c("sex","educ","death","angina","hospmi","MI_FCHD","anychd","cvd","hy
 
 Data_wide_cens_order_1 <- Data_wide_cens_order %>% mutate(across(cols_int,as.integer))
 
-## The treatment A, censoring C variables and the outcome Y are specified 
+## The treatment, A, censoring, C, variables and the outcome, Y, are specified 
 anodes <- c("cursmoke_1","cursmoke_2","cursmoke_3")
 cnodes <- c("c2","c3")
 ynodes <- "stroke"

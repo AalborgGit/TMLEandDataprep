@@ -4,7 +4,7 @@
 library(tidyverse)
 library(missForest)
 
-##Load the Framingham Hart study which is a Longitudinal study
+##Load the Framingham Heart Study which is a longitudinal study
 Data <- read.csv("frmgham2.csv")
 
 ## Convert the variables in 'cols' to factors
@@ -56,7 +56,7 @@ id_period <- rep_period_Data$values[which(rep_period_Data$lengths<3)]
 # Extract these individuals from Data
 Data_less3 <- Data %>% slice(which(randid %in% id_period))
 
-# identify which individuals did not attend the third examinaiton
+# identify which individuals did not attend the third examination
 Data_minus_3 <- Data_less3 %>% group_by(randid) %>% filter(max(period)!=3) %>% ungroup()
 id3 <- Data_minus_3$randid %>% unique()
 
@@ -73,7 +73,7 @@ Data_com_3 <- Data_NA_new %>% anti_join(rows3)
 
 # Hence, we have remove all added rows corresponding to a right censoring in period three
 
-# Identify which of the rigt censored individuals (id3) were already right censored in period 2 two
+# Identify which of the right censored individuals (id3) were already right censored in period two
 Data_com_3_NA2 <- Data_com_3 %>% slice(which(randid %in% id3)) %>% filter(period==2)
 id2 <- which(is.na(Data_com_3_NA2$sex))
 
@@ -123,15 +123,15 @@ Data_long <- Dat1_time_age %>% missForest(maxiter = 10,parallelize ="forests")
 #save(Data_long,file="Data_long.Rdata")
 Data_long_1 <- Data_long$ximp %>% as.data.frame() # extract the missing values
 
-## Convert totchol,cigpday,heartrte,glucose to integer class
+## Convert totchol, cigpday, heartrte and glucose to integer class
 Data_long_1[,c("totchol","cigpday","heartrte","glucose")] <- round(Data_long_1[,c("totchol","cigpday","heartrte","glucose")])
 Data_long_1[,"totchol"] <- Data_long_1[,"totchol"] %>% as.integer()
 Data_long_1[,"cigpday"] <-Data_long_1[,"cigpday"] %>% as.integer()
 Data_long_1[,"heartrte"] <- Data_long_1[,"heartrte"] %>% as.integer()
 Data_long_1[,"glucose"] <-Data_long_1[,"glucose"] %>% as.integer()
 
-## Round the variables sysbp and diabp to one dicimal and the variable bmi 
-# to two dicimals 
+## Round the variables sysbp and diabp to one decimal and the variable bmi 
+# to two decimals 
 Data_long_1[,c("sysbp","diabp")] <- round(Data_long_1[,c("sysbp","diabp")],1)
 Data_long_1[,"bmi"] <- round(Data_long_1[,"bmi"],2)
 

@@ -28,13 +28,13 @@ notes <- list(W=names(Data_wide_1_tmle_subset)[c(1:7,9:22,24:36)],Y="stroke",A="
 
 # We now use the sl3 super learner package 
 
-# First we get an overview of which methods fits for categorical and continuous variables
+# First we get an overview of which methods fit for categorical and continuous variables
 sl3_list_properties()
 sl3_list_learners("categorical")
 sl3_list_learners("continuous")
 
 
-# Define the methods for the Super learners to estimate 
+# Define the methods for the Super learners
 
 lrnr_xgbo <- make_learner(Lrnr_xgboost)
 
@@ -53,10 +53,10 @@ sl_A <- Lrnr_sl$new(
 )
 learner_list <- list(A = sl_A, Y = sl_Y)
 
-# spec objekt for the tmle3 function to estimate ATE with CV-TMLE
+# spec objekt for the tmle3 function to estimate average causal effect with CV-TMLE
 ate_spec <- tmle_ATE(treatment_level="treated",control_level="untreated")
 
-# Estimate the ATE with CV-TMLE 
+# Estimate the average causal effect with CV-TMLE 
 set.seed(12)
 tmle_est_cv <-tmle3(tmle_spec=ate_spec,data=Data_wide_1_tmle_subset,node_list=notes,learner_list =learner_list)
 
